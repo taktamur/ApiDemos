@@ -72,7 +72,7 @@ public class CameraPreview extends Activity {
         CameraInfo cameraInfo = new CameraInfo();
             for (int i = 0; i < numberOfCameras; i++) {
                 Camera.getCameraInfo(i, cameraInfo);
-                // 液晶面のカメラを使う
+                // Nexus7の場合、液晶面のカメラしかないので、CAMERA_FACING_FRONTを指定する
                 if (cameraInfo.facing == CameraInfo.CAMERA_FACING_FRONT) {
                     defaultCameraId = i;
                 }
@@ -84,6 +84,7 @@ public class CameraPreview extends Activity {
         super.onResume();
 
         // Open the default i.e. the first rear facing camera.
+        // Nexus7の場合、背面カメラが無いから、cameraIdを指定しないとnilになる。
         mCamera = Camera.open(defaultCameraId);
         cameraCurrentlyLocked = defaultCameraId;
         mPreview.setCamera(mCamera);
